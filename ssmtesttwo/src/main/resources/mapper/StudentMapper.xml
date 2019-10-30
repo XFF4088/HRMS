@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <!--定义接口  -->
+ <mapper namespace="com.hqyj.ssmtesttwo.dao.StudentDao">
+ <!-- 定义pojo类和数据表的映射关系 -->
+<!-- 定义pojo类和数据库表的映射关系 -->
+<resultMap type="com.hqyj.ssmtesttwo.modal.Student" id="BaseResutlMap">
+<!--定义主键列名  -->
+<id property="sId" column="s_id" jdbcType="INTEGER"></id>
+<!-- 定义非主键属性 -->
+<result property="sName" column="s_name" jdbcType="VARCHAR"/>
+<result property="sSex" column="s_sex" jdbcType="VARCHAR"/>
+
+</resultMap>
+
+
+<!-- 定义接口方法对应的sql语句配置 -->
+<select id="selectStudent" resultMap="BaseResutlMap" parameterType="com.hqyj.ssmtesttwo.modal.Student">
+	select s_id,s_name,s_sex from student
+	
+	<trim prefix="where " suffix=" " suffixOverrides="and">
+	 	<if test="sName!=null and sName!=''">
+	 		s_name like #{sName} and
+	 	</if>
+	 	 <if test="sSex!=null and sSex!=''">
+	 		s_sex = #{sSex} and
+	 	</if>
+	 	
+	</trim>
+	
+	limit #{start},#{rows}
+	
+</select>
+
+<!-- 查询总条数 -->
+<select id="selectCount" resultType="java.lang.Integer" parameterType="com.hqyj.ssmtesttwo.modal.Student">
+	select count(s_id) from student
+
+	<trim prefix="where " suffix=" " suffixOverrides="and">
+	 	<if test="sName!=null and sName!=''">
+	 		s_name like #{sName} and
+	 	</if>
+	 	 <if test="sSex!=null and sSex!=''">
+	 		s_sex = #{sSex} and
+	 	</if>
+	 	
+	</trim>
+</select>
+<!--  新增-->
+<insert id="add" parameterType="com.hqyj.ssmtesttwo.modal.Student" >
+   insert into student (s_name,s_sex) values(#{sName},#{sSex})
+
+</insert>
+<!-- 修改 -->
+<update id="update" parameterType="com.hqyj.ssmtesttwo.modal.Student">
+	update student set s_name=#{sName},s_sex=#{sSex} where s_id=#{sId}
+</update>
+<!-- 删除 -->
+<delete id="del" parameterType="java.lang.Integer">
+ 	delete from student where s_id=#{id} 
+</delete>
+
+ </mapper>

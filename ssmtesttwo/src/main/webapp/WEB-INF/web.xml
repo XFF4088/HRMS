@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  
+  <display-name>Archetype Created Web Application</display-name>
+  
+    <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/spring.xml</param-value>
+  </context-param>
+<!--   
+  
+  启动Web容器时 通过ContextLoader类，contextConfigLocation指向这个类，自动装配配置信息 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!--配置编码过滤器  -->
+ <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+	<!--配置前端过滤器  -->
+	
+		<!--配置前端过滤器  -->
+<servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 加载 spring-mvc文件-->
+   <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/springmvc.xml</param-value>
+    </init-param> 
+    <!-- 启动级别，级别越小，级别越高 -->
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+	
+<welcome-file-list>
+		<welcome-file>loginPage.do</welcome-file>
+</welcome-file-list>
+</web-app>
