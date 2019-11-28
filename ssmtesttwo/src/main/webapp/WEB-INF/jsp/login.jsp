@@ -43,14 +43,14 @@
 						<img src="images/user.png" widthe="20" height="20" style="position: relative; top: 5px;" />
 						<!--用户登录输入框-->
 						<label for="userName">用户名:&nbsp;</label>
-						<input class="wu-text" style="width:160px" type="text" name="userName" placeholder="请输入用户名"></input>
+						<input class="wu-text" style="width:160px" type="text" id="userName" name="userName" placeholder="请输入用户名"></input>
 					</div>
 					<br />
 					<div>
 						<img src="images/pwd.png" widthe="20" height="20" style="position: relative; top: 5px;" />
 						<!--密码登录输入框-->
 						<label for="userPwd">密&nbsp;码:&nbsp;&nbsp;&nbsp; </label>
-						<input class="wu-text" style="width:160px" name="userPwd" type="password" placeholder="请输入密码" ></input>
+						<input class="wu-text" style="width:160px" id="userPwd" name="userPwd" type="password" placeholder="请输入密码" ></input>
 					</div>
 					<div>
 						<img src="images/pwd.png" width="20" height="20" style="position: relative; top: 5px;" />
@@ -73,14 +73,20 @@
 			/* 登录触发方法 */
 			function login() {
 				var code = $("#valCode").val();
+				var sName = $("#userName").val();
+				var userPwd = $("#userPwd").val();
+				
 				$.ajax({
 					url:"loginSubmit.do",
 					type:"post",
-					data:{'valCode':code},
+					data:{'valCode':code,
+						  'sName':sName,
+						  'userPwd':userPwd
+						  },
 					dataType:"json",
 					success:function(data){
 						if(data){
-							alert("验证码输入正确");
+							window.location.href="index.do";
 						}else{
 							alert("验证码输入失败");
 						}

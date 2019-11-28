@@ -12,6 +12,18 @@ public class ForwardController {
 		return "login";
 	}
 	
+	//跳转到培训信息页面
+	@RequestMapping("train.do")
+	public String train(){
+		return "train";
+	}
+	
+	//跳转到培训评价页面
+	@RequestMapping("trainPJ.do")
+	public String trainPJ(){
+		return "trainPJ";
+	}
+	
 	//跳转到首页
 	@RequestMapping("index.do")
 	public String index(){

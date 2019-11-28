@@ -13,6 +13,7 @@
 <!-- 定义非主键属性 -->
 <result property="sName" column="s_name" jdbcType="VARCHAR"/>
 <result property="sSex" column="s_sex" jdbcType="VARCHAR"/>
+<result property="userPwd" column="userPwd" jdbcType="VARCHAR"/>
 
 </resultMap>
 
@@ -48,6 +49,10 @@
 	 	</if>
 	 	
 	</trim>
+</select>
+
+<select id="selectByName" resultType="java.lang.String" parameterType="java.lang.String">
+	select userPwd from student where s_name like #{sName}
 </select>
 <!--  新增-->
 <insert id="add" parameterType="com.hqyj.ssmtesttwo.modal.Student" >

@@ -63,14 +63,15 @@
             </div>
             <div title="教育培训" data-options="iconCls:'icon-chart-curve'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="layout-3.html" iframe="0">培训信息</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="train.do" iframe="0">培训信息</a></li>
+                	<!-- <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="trainPJ.do" iframe="0">培训评价</a></li> -->
                 </ul>
             </div>
-            <div title="考勤管理" data-options="iconCls:'icon-wrench'" style="padding:5px;">  	
+            <!-- <div title="考勤管理" data-options="iconCls:'icon-wrench'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="layout-3.html" iframe="0">导航标题</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>	
     <!-- 左边导航结尾 -->  

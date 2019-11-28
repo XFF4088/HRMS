@@ -16,10 +16,19 @@ public class Student extends MyPage{
 	}
 	private String sName;
 	private String sSex;
+	private String userPwd;
+	
+	
 	
 	
 
 
+	public String getUserPwd() {
+		return userPwd;
+	}
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
+	}
 	public String getsName() {
 		return sName;
 	}

@@ -18,7 +18,6 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	StudentDao studentDao;
 
-	//Ñ§ÉúĞÅÏ¢²éÑ¯
 	@Override
 	public HashMap<String,Object>  selectStudent(Student s) {
 		HashMap<String,Object>  map = new HashMap<String,Object> ();
@@ -26,15 +25,12 @@ public class StudentServiceImpl implements StudentService {
 		if(s.getsName()!=null&&!s.getsName().equals("")){
 			s.setsName("%"+s.getsName()+"%");
 		}
-		System.err.println("·şÎñ¶Ë£º"+s.toString());
+		System.err.println("é”™è¯¯ä¿¡æ¯ï¼š"+s.toString());
 		
-		//¼ÆËã·ÖÒ³ÆğÊ¼Î»ÖÃ
 		int start = s.getRows()*(s.getPage()-1);
 		s.setStart(start);	
 		int total = studentDao.selectCount(s);
-		//½á¹û¼¯
 		map.put("rows", studentDao.selectStudent(s));
-		//×ÜÌõÊı
 		map.put("total", total);
 		return map;
 	}
@@ -66,6 +62,11 @@ public class StudentServiceImpl implements StudentService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String selectByName(String userName) {
+		return studentDao.selectByName(userName);
 	}
 
 	

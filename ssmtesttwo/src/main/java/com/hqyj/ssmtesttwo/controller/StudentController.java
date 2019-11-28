@@ -31,7 +31,7 @@ public class StudentController {
 	ValCode valCode;
 	
 	
-	//��ѯ
+	//查询
 	@RequestMapping("selectStudent.do")
 	@ResponseBody
 	public HashMap<String,Object> selectStudent(Student s){
@@ -39,35 +39,40 @@ public class StudentController {
 		return studentService.selectStudent(s);
 	}
 	
-	//����
+	//新增
 	@RequestMapping("add.do")
 	@ResponseBody
 	public boolean add(Student s){
 		return studentService.add(s);
 	}
 	
-	//�޸�
+	//修改
 	@RequestMapping("update.do")
 	@ResponseBody
 	public boolean update(Student s){
 		return studentService.update(s);
 	}
 	
-	//ɾ��
+	//删除
 	@RequestMapping("del.do")
 	@ResponseBody
 	public boolean del(Integer id){
 		return studentService.del(id);
 	}
-	//��¼�ύajaxʵ��
+	//登录提交ajax实现
 	@RequestMapping("loginSubmit.do")
 	@ResponseBody
-	public boolean loginSubmit(HttpServletRequest request,String valCode){
-		System.err.println("���������֤���ǣ�"+valCode);
-		//��ȡ����session�е���֤��
+	public boolean loginSubmit(HttpServletRequest request,String valCode,String sName,String userPwd){
+		System.err.println("你输入的验证码是："+valCode);
+		//获取存入session中的验证码
 		HttpSession session = request.getSession();
 		String code = session.getAttribute("valCode")+"";
-		if(code.equalsIgnoreCase(valCode)){
+		String userPwd1 = studentService.selectByName(sName);
+		System.out.println(sName);
+		System.out.println(userPwd);
+		System.out.println(userPwd1);
+		System.out.println(valCode);
+		if(code.equalsIgnoreCase(valCode) && userPwd1.equals(userPwd)){
 			return true;
 		}
 		return false;
@@ -75,25 +80,25 @@ public class StudentController {
 	
 
 	
-	//��֤������
+	//验证码生成
 	@RequestMapping(method=RequestMethod.GET,value="valCode.do")
 	public void valCode(HttpServletRequest request,HttpServletResponse response){
-		//����ͼƬ��ʽ
+		//设置图片格式
 	    response.setContentType("image/png");
-	    //��ʼ������֤��
+	    //开始生成验证码
 	    valCode.createCode();
-	    //��ȡ��֤��ֵ
+	    //获取验证码值ֵ
 	    String code =valCode.getCode();
 	    
 	    HttpSession session =request.getSession();
-	    //��֤��ֵ����session��
+	    //验证码值存入session中
 	    session.setAttribute("valCode", code);
 	    
 	    try {
-	    	//������֤��ͼƬ
+	    	//生成验证码图片
 			valCode.write(response.getOutputStream());
 		} catch (IOException e) {
-			System.err.println("��֤�����ɳ����쳣");
+			System.err.println("验证码生成出现异常");
 			e.printStackTrace();
 		}
 		
