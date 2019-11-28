@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <!--定义接口  -->
+ <mapper namespace="com.hqyj.ssmtesttwo.dao.TrainDao">
+ <!-- 定义pojo类和数据表的映射关系 -->
+<!-- 定义pojo类和数据库表的映射关系 -->
+<resultMap type="com.hqyj.ssmtesttwo.modal.Train" id="BaseResutlMap">
+<!--定义主键列名  -->
+<id property="id" column="id" jdbcType="INTEGER"></id>
+<!-- 定义非主键属性 -->
+<result property="sname" column="sname" jdbcType="VARCHAR"/>
+<result property="name" column="name" jdbcType="VARCHAR"/>
+<result property="content" column="content" jdbcType="VARCHAR"/>
+<result property="pj" column="pj" jdbcType="VARCHAR"/>
+
+</resultMap>
+
+
+<!-- 定义接口方法对应的sql语句配置 -->
+<select id="selectAllTrain" resultMap="BaseResutlMap" parameterType="com.hqyj.ssmtesttwo.modal.Train">
+	select id,sname,name,content,pj from train
+	
+	<trim prefix="where " suffix=" " suffixOverrides="and">
+		<if test="id!=null and id!=''">
+	 		id = #{id} and
+	 	</if>
+	 	<if test="sname!=null and sname!=''">
+	 		sname like #{sname} and
+	 	</if>
+	 	 <if test="content!=null and content!=''">
+	 		content = #{content} and
+	 	</if>
+	 	
+	</trim>
+	
+	limit #{start},#{rows}
+	
+</select>
+
+<!-- 查询总条数 -->
+<select id="selectCount" resultType="java.lang.Integer" parameterType="com.hqyj.ssmtesttwo.modal.Train">
+	select count(id) from train
+
+	<trim prefix="where " suffix=" " suffixOverrides="and">
+	 	<if test="name!=null and name!=''">
+	 		name like #{name} and
+	 	</if>
+	 	 <if test="content!=null and content!=''">
+	 		content = #{content} and
+	 	</if>
+	 	
+	</trim>
+</select>
+<!--  新增-->
+<insert id="add" parameterType="com.hqyj.ssmtesttwo.modal.Train" >
+   insert into train (sname,name,content,pj) values(#{sname},#{name},#{content},#{pj})
+
+</insert>
+<!-- 修改 -->
+<update id="update" parameterType="com.hqyj.ssmtesttwo.modal.Train">
+	update train set sname=#{sname},name=#{name},content=#{content},pj=#{pj} where id=#{id}
+</update>
+<!-- 删除 -->
+<delete id="del" parameterType="java.lang.Integer">
+ 	delete from train where id=#{id} 
+</delete>
+
+ </mapper>
